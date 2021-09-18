@@ -19,7 +19,7 @@ Route::get('/', function () {
 Route::get('/list', 'CompanyController@list')->name('list');
 
 // 検索用
-Route::get('/list/{name}', 'CompanyController@getUsersBySearchName'); // url: '/user/index/' + userNameと同じ
+Route::get('/search/{name}', 'CompanyController@search');
 
 // 登録
 Route::get('/register', 'CompanyController@register')->name('register');
