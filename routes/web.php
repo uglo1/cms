@@ -18,6 +18,9 @@ Route::get('/', function () {
 // 一覧
 Route::get('/list', 'CompanyController@list')->name('list');
 
+// 検索用
+Route::get('/list/{name}', 'CompanyController@getUsersBySearchName'); // url: '/user/index/' + userNameと同じ
+
 // 登録
 Route::get('/register', 'CompanyController@register')->name('register');
 Route::post('/store', 'CompanyController@store')->name('store');

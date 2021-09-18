@@ -7,12 +7,20 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Company;
 
+ini_set('display_errors',1);
+
 class CompanyController extends Controller
 {   
     // 一覧
     public function list(){
         $companies = Company::all();
         return view('list')->withTitle('取引企業管理 | LIST')->with(['companies' => $companies]);
+    }
+
+    public function getUsersBySearchName($userName)
+    {
+        $companies = Company::query()->where('name', 'like', '%' . $userName . '%')->get(); 
+        return response()->json($companies);
     }
 
     // 登録

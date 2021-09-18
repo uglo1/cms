@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no">
   <title>{{ $title ?? '取引企業管理' }}</title>
 
@@ -13,7 +14,9 @@
 <body>
   @yield('content')
   
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  {{-- Bootstrap --}}
+  {{-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> --}}
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
