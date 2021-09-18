@@ -32,6 +32,10 @@
       </tbody>
     </table>
 
+    <div class="paginate-nav-search d-none">
+      {{$companies->links()}}
+    </div>
+
     {{-- 通常のテーブル --}}
     <table class="company-table table table-striped table-bordered">
       <thead>
@@ -68,6 +72,9 @@
         @endforeach
       </tbody>
     </table>
+    <div class="paginate-nav">
+      {{$companies->links()}}
+    </div>
   </div>
 </div>
 
@@ -82,15 +89,27 @@
 $(function(){
   $('#search_name').on('keyup', function() {
     $('.search-table tbody').empty(); // 検索テーブルの要素をなくす
+    $('.paginate-nav-search').empty(); // 検索テーブルのページネーションナビをなくす
     $('.company-table').addClass('d-none'); // 通常のテーブルを隠す
+    $('.paginate-nav').addClass('d-none'); // ページネーションナビを隠す
+
     $('.search-table').removeClass('d-none'); // 検索テーブルを表示する
+
+    // TODO 検索用テーブルのページネーションナビを表示させたい
+    // $('.paginate-nav-search').removeClass('d-none'); // 検索テーブルのページネーション
     $('.search-null').remove(); // 検索結果が0の時のテキストを消す
   
     let companyName = $('#search_name').val(); //検索ワードを取得(フォームのsearch_name)
 
+    // 検索フォームに何もない時
     if (!companyName) {
+      // 通常のは見えるように
       $('.company-table').removeClass('d-none');
+      $('.paginate-nav').removeClass('d-none');
+
+      // 検索用関連は非表示に
       $('.search-table').addClass('d-none');
+      $('paginate-nav-search').addClass('d-none');
       return false;
     } // ガード節で検索ワードが空の時は、ここで処理を止めて何もビューに出さない
   
@@ -135,9 +154,10 @@ $(function(){
         `
         $('.search-table tbody').append(html); // 出来上がったテンプレートをビューに追加
       })
+      $('.paginate-nav-search').append(`{{$companies->links()}}`);
       // 検索結果がなかった時の処理
       if (data.length === 0) {
-        $('.company-search-form').after('<p class="text-center search-null">ユーザーが見つかりません</p>');
+        $('.company-search-form').after('<p class="text-center search-null">会社が見つかりません</p>');
       }
     }).fail(function () {
       // ajax通信がエラーの時

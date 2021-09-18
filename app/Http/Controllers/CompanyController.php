@@ -11,14 +11,19 @@ class CompanyController extends Controller
 {   
     // 一覧
     public function list(){
-        $companies = Company::all();
+        // $companies = Company::all();
+        $companies = DB::table('companies')->simplePaginate(3);
         return view('list')->withTitle('取引企業管理 | LIST')->with(['companies' => $companies]);
     }
 
     // 検索
-    public function search($companyrName)
-    {
-        $companies = Company::query()->where('name', 'like', '%' . $companyrName . '%')->get(); 
+    public function search($companyName)
+    {   
+        // TODO 検索テーブルのページネーションナビを渡したい
+        // $companies = DB::table('companies')->where('name', 'like', '%' . $companyName . '%')->paginate(3);
+        // $companies = DB::table('companies')->paginate(3);
+        // $companies = Company::where('name', 'like', '%' . $companyName . '%')->simplePaginate(2); 
+        $companies = Company::where('name', 'like', '%' . $companyName . '%')->get(); 
         return response()->json($companies);
     }
 
